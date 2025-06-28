@@ -1,0 +1,25 @@
+version: '2'
+
+run:
+  go: '1.24'
+  timeout: 5m
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+
+linters:
+  enable:
+    - govet
+    - errcheck
+    - staticcheck
+    - ineffassign
+    - unused
+    - misspell
+    - gosec
+    - gocritic
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0 

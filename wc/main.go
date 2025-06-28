@@ -5,8 +5,16 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 )
+
+func closeFile(file *os.File) {
+	if err := file.Close(); err != nil {
+		fmt.Println("Error closing file: ", file.Name(), err)
+		os.Exit(1)
+	}
+}
 
 func countBytes(content []byte) int {
 	return len(content)
@@ -25,6 +33,13 @@ func countCharacters(content []byte) int {
 }
 
 func main() {
+	if err := run(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
 	// process arguments
 	// -c count bytes
 	// -l count lines
@@ -40,30 +55,35 @@ func main() {
 
 	// parse file from the last argument
 	filename := flag.Args()[len(flag.Args())-1]
+	filename = filepath.Clean(filename)
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening file: ", err)
-		os.Exit(1)
+		return err
 	}
-	defer file.Close()
+	defer closeFile(file)
 
 	// read file
 	content, err := io.ReadAll(file)
 	if err != nil {
 		fmt.Println("Error reading file: ", err)
-		os.Exit(1)
+
+		return err
 	}
 
 	// process flags
-	if *bytesFlag {
+	switch {
+	case *bytesFlag:
 		fmt.Println(countBytes(content), filename)
-	} else if *linesFlag {
+	case *linesFlag:
 		fmt.Println(countLines(content), filename)
-	} else if *wordsFlag {
+	case *wordsFlag:
 		fmt.Println(countWords(content), filename)
-	} else if *charsFlag {
+	case *charsFlag:
 		fmt.Println(countCharacters(content), filename)
-	} else {
+	default:
 		fmt.Println(countBytes(content), countLines(content), countWords(content), filename)
 	}
+
+	return nil
 }
