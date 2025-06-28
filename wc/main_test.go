@@ -107,12 +107,18 @@ func TestIntegrationWithFile(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer os.Remove(tmpfile.Name())
+	defer func() {
+		if err := os.Remove(tmpfile.Name()); err != nil {
+			t.Fatal(err)
+		}
+	}()
 
 	if _, err := tmpfile.Write([]byte(testContent)); err != nil {
 		t.Fatal(err)
 	}
-	tmpfile.Close()
+	if err := tmpfile.Close(); err != nil {
+		t.Fatal(err)
+	}
 
 	// Test each flag
 	content, err := os.ReadFile(tmpfile.Name())
