@@ -1,15 +1,16 @@
 package main
 
 import (
-	common "url/db"
-	"url/db/in_mem"
+	"log"
+	"url/api"
 )
 
 func main() {
-	var database common.Database = in_mem.NewInMemoryDatabase()
-	entry1 := database.AddEntry("https://www.github.com")
-	database.AddEntry("https://www.sapo.pt")
-	database.String()
-	database.DeleteEntry(entry1.ID) // delete entry1
-	database.String()
+	// Create and start server
+	srv := api.NewServer()
+
+	log.Printf("Starting URL Shortener server on port %s", srv.Port)
+	if err := srv.Run(); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
