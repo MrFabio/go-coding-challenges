@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	"url/config"
 
 	common "url/db"
 
@@ -11,12 +12,12 @@ import (
 // Handler struct holds dependencies for HTTP handlers
 type Handler struct {
 	database  common.Database
-	config    *Config
+	config    *config.Config
 	validator *URLValidator
 }
 
 // NewHandler creates a new handler instance
-func NewHandler(database common.Database, config *Config) *Handler {
+func NewHandler(database common.Database, config *config.Config) *Handler {
 	return &Handler{
 		database:  database,
 		config:    config,

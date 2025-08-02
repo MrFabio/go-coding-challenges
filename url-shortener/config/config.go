@@ -1,7 +1,8 @@
-package api
+package config
 
 import (
 	"os"
+	"strconv"
 )
 
 // Config holds all configuration for the application
@@ -11,6 +12,10 @@ type Config struct {
 	StaticFilesPath string
 	IndexFilePath   string
 	DatabaseMode    string // in_mem, redis, etc.
+	RedisHost       string // default: localhost
+	RedisPort       string // default: 6379
+	RedisPassword   string // default: ""
+	RedisDB         int    // default: 7
 }
 
 // LoadConfig loads configuration from environment variables with defaults
@@ -21,6 +26,10 @@ func LoadConfig() *Config {
 		StaticFilesPath: "./www",
 		IndexFilePath:   "./www/index.html",
 		DatabaseMode:    getEnv("DATABASE_MODE", "in_mem"),
+		RedisHost:       getEnv("REDIS_HOST", "localhost"),
+		RedisPort:       getEnv("REDIS_PORT", "6379"),
+		RedisPassword:   getEnv("REDIS_PASSWORD", ""),
+		RedisDB:         getEnvAsInt("REDIS_DB", 7),
 	}
 }
 
@@ -28,6 +37,16 @@ func LoadConfig() *Config {
 func getEnv(key, defaultValue string) string {
 	if value := os.Getenv(key); value != "" {
 		return value
+	}
+	return defaultValue
+}
+
+// getEnvAsInt gets an environment variable as int or returns a default value
+func getEnvAsInt(key string, defaultValue int) int {
+	if value := os.Getenv(key); value != "" {
+		if parsed, err := strconv.Atoi(value); err == nil {
+			return parsed
+		}
 	}
 	return defaultValue
 }

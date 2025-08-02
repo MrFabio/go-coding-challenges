@@ -2,6 +2,8 @@ package redis
 
 import (
 	"fmt"
+	"url/config"
+
 	common "url/db"
 )
 
@@ -15,14 +17,10 @@ type RedisDatabase struct {
 	redisHelper *RedisHelper
 }
 
-func NewRedisDatabase() *RedisDatabase {
+func NewRedisDatabase(config *config.Config) *RedisDatabase {
 	return &RedisDatabase{
-		redisHelper: NewRedisHelper(),
+		redisHelper: NewRedisHelper(config),
 	}
-}
-
-func NewDatabase() Database {
-	return NewRedisDatabase()
 }
 
 func (db *RedisDatabase) AddEntry(url string) Entry {

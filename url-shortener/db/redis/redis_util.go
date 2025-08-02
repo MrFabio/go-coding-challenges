@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"url/config"
 	common "url/db"
 
 	redis "github.com/redis/go-redis/v9"
@@ -13,11 +14,11 @@ type RedisHelper struct {
 
 var ctx = context.Background()
 
-func NewRedisHelper() *RedisHelper {
+func NewRedisHelper(config *config.Config) *RedisHelper {
 	redisClient := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",
-		DB:       7,
+		Addr:     config.RedisHost + ":" + config.RedisPort,
+		Password: config.RedisPassword,
+		DB:       config.RedisDB,
 	})
 	return &RedisHelper{
 		redisClient: redisClient,
