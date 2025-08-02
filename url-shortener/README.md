@@ -18,7 +18,7 @@ A flexible URL shortening service with a generic database interface, built as pa
 
 ## Project Structure
 
-```
+``` yaml
 url-shortener/
 ├── api/              # All application logic (flat structure)
 │   ├── config.go     # Configuration management
@@ -43,17 +43,29 @@ The service uses a generic `Database` interface that supports multiple storage b
 
 ## Usage
 
-```bash
+``` bash
 # Build the service
 go build -o url-shortener main.go
 
-# Run with in-memory database
+# Run with in-memory database (default)
 ./url-shortener
 
 # Or run without building it
 go run .
 
 # Access the Webpage at http://localhost:8000
+```
+
+### Running with Redis
+
+To use Redis for persistent storage:
+
+``` bash
+# Set database mode to Redis (default is `localhost:6379/7`)
+DATABASE_MODE=redis go run .
+
+# Or with custom Redis configuration
+DATABASE_MODE=redis REDIS_HOST=localhost REDIS_PORT=6379 go run .
 ```
 
 ## API Endpoints
@@ -77,7 +89,7 @@ The service uses a clean architecture with:
 
 Run the comprehensive test suite:
 
-```bash
+``` bash
 go test ./db/...
 ```
 
@@ -99,10 +111,28 @@ The service supports configuration through environment variables:
 - `PORT` - Server port (default: `8000`)
 - `DATABASE_MODE` - Database mode `in_mem` or `redis` (default: `in_mem`)
 
-You can run the server using _Redis_ for persistent storage, by setting the env:
+### Redis Configuration
 
-```bash
+When using Redis mode, the following environment variables are available:
+
+- `REDIS_HOST` - Redis server hostname (default: `localhost`)
+- `REDIS_PORT` - Redis server port (default: `6379`)
+- `REDIS_PASSWORD` - Redis authentication password (default: empty)
+- `REDIS_DB` - Redis database number (default: `7`)
+
+#### Example Redis Configuration
+
+``` bash
+# Basic Redis setup
 DATABASE_MODE=redis go run .
+
+# Custom Redis configuration
+DATABASE_MODE=redis \
+REDIS_HOST=redis.example.com \
+REDIS_PORT=6380 \
+REDIS_PASSWORD=mysecret \
+REDIS_DB=0 \
+go run .
 ```
 
 ![Redis Keys](doc/redis.png)

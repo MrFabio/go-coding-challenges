@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"testing"
+	"url/config"
 	common "url/db"
 )
 
@@ -10,7 +11,7 @@ type DatabaseTestSuite = common.DatabaseTestSuite
 
 // NewRedisDatabaseTestSuite returns the test suite configuration for RedisDatabase
 func NewRedisDatabaseTestSuite() DatabaseTestSuite {
-	db := NewRedisDatabase()
+	db := NewRedisDatabase(config.LoadConfig())
 	return DatabaseTestSuite{
 		Name: "RedisDatabase",
 		DB:   db,

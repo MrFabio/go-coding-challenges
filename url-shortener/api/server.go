@@ -2,6 +2,7 @@ package api
 
 import (
 	"log"
+	"url/config"
 	common "url/db"
 	"url/db/in_mem"
 	"url/db/redis"
@@ -13,14 +14,14 @@ import (
 type Server struct {
 	database common.Database
 	router   *gin.Engine
-	config   *Config
+	config   *config.Config
 	handler  *Handler
 	Port     string
 }
 
 // NewServer creates a new server instance
 func NewServer() *Server {
-	config := LoadConfig()
+	config := config.LoadConfig()
 
 	var database common.Database
 	switch config.DatabaseMode {
@@ -29,7 +30,7 @@ func NewServer() *Server {
 		database = in_mem.NewInMemoryDatabase()
 	case "redis":
 		log.Println("Using redis database")
-		database = redis.NewRedisDatabase()
+		database = redis.NewRedisDatabase(config)
 	}
 
 	router := gin.Default()

@@ -24,11 +24,6 @@ func NewInMemoryDatabase() *InMemoryDatabase {
 	}
 }
 
-// NewDatabase creates a new database instance (alias for backward compatibility)
-func NewDatabase() Database {
-	return NewInMemoryDatabase()
-}
-
 func (db *InMemoryDatabase) AddEntry(url string) Entry {
 	hash := common.Hash(url)
 	if db.HasURLHash(hash) {
