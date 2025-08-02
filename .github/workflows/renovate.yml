@@ -1,0 +1,22 @@
+name: Renovate
+
+on:
+  schedule:
+    - cron: '0 2 * * 6'
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  renovate:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v43.0.5
+        with:
+          configurationFile: renovate.json
+          token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          RENOVATE_REPOSITORIES: "['MrFabio/url-shortener']"
+          RENOVATE_USERNAME: renovate-release
