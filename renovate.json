@@ -5,8 +5,16 @@
   ],
   "branchPrefix": "renovate/",
   "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
-  "baseBranches": ["main"],
+  "baseBranchPatterns": [
+    "main"
+  ],
   "rebaseWhen": "behind-base-branch",
   "automerge": false,
-  "prHourlyLimit": 0
+  "prHourlyLimit": 0,
+  "packageRules": [
+    {
+      "matchPaths": [".github/workflows/**"],
+      "enabled": false
+    }
+  ]
 }
