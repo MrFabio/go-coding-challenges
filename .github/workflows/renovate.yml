@@ -18,5 +18,5 @@ jobs:
           configurationFile: renovate.json
           token: ${{ secrets.RENOVATE_TOKEN }}
         env:
-          RENOVATE_REPOSITORIES: "['MrFabio/url-shortener']"
+          RENOVATE_REPOSITORIES: "['MrFabio/go-coding-challenges']"
           RENOVATE_USERNAME: renovate-release
