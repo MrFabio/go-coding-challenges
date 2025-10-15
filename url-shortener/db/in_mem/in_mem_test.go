@@ -2,7 +2,7 @@ package in_mem
 
 import (
 	"testing"
-	common "url/db"
+	common "url-shortener/db"
 )
 
 func TestInMemoryDatabaseInitialization(t *testing.T) {

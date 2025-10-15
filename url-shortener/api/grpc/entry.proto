@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package grpc;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "url-shortener/api/grpc";
+
+
+service EntryService {
+  rpc AddEntry(CreateEntryRequest) returns (GetEntryResponse);
+  rpc GetEntry(GetEntryRequest) returns (GetEntryResponse);
+  rpc WatchEntries(google.protobuf.Empty) returns (stream GetEntryResponse);
+}
+
+message GetEntryRequest {
+  string id = 1;
+}
+
+message GetEntryResponse {
+  string url = 1;
+  string id = 2;
+}
+
+message CreateEntryRequest {
+  string url = 1;
+}

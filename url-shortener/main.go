@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"url/api"
+	"url-shortener/api"
 )
 
 func main() {

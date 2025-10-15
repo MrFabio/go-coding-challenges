@@ -1,0 +1,20 @@
+type: grpc_request
+model: grpc_request
+id: gr_5otKU99vJH
+createdAt: 2025-10-14T17:50:22.099546
+updatedAt: 2025-10-15T11:05:28.793927
+workspaceId: wk_Hztt5grLqi
+folderId: fl_xvmd4FkFF2
+authenticationType: null
+authentication: {}
+description: ''
+message: |-
+  {
+    "url": "https://sapo.pt"
+  }
+metadata: []
+method: AddEntry
+name: AddEntry
+service: grpc.EntryService
+sortPriority: 2000.0
+url: localhost:50051

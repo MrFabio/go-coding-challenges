@@ -2,8 +2,8 @@ package redis
 
 import (
 	"context"
-	"url/config"
-	common "url/db"
+	"url-shortener/config"
+	common "url-shortener/db"
 
 	redis "github.com/redis/go-redis/v9"
 )

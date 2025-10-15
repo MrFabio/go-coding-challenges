@@ -2,9 +2,9 @@ package tests
 
 import (
 	"testing"
-	common "url/db"
-	"url/db/in_mem"
-	"url/db/redis"
+	common "url-shortener/db"
+	"url-shortener/db/in_mem"
+	"url-shortener/db/redis"
 )
 
 type Database = common.Database

@@ -1,0 +1,17 @@
+type: grpc_request
+model: grpc_request
+id: gr_KtsS7ApUzj
+createdAt: 2025-10-14T17:50:02.181698
+updatedAt: 2025-10-15T11:05:18.834198
+workspaceId: wk_Hztt5grLqi
+folderId: fl_xvmd4FkFF2
+authenticationType: null
+authentication: {}
+description: ''
+message: ''
+metadata: []
+method: WatchEntries
+name: WatchEnties
+service: grpc.EntryService
+sortPriority: 0.0
+url: localhost:50051
