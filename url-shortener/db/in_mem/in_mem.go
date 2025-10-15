@@ -2,7 +2,7 @@ package in_mem
 
 import (
 	"fmt"
-	common "url/db"
+	common "url-shortener/db"
 )
 
 type Entry = common.Entry
@@ -38,8 +38,9 @@ func (db *InMemoryDatabase) AddEntry(url string) Entry {
 	return entry
 }
 
-func (db *InMemoryDatabase) GetEntry(id string) (Entry, error) {
-	return db.entries[id], nil
+func (db *InMemoryDatabase) GetEntry(id string) (Entry, bool) {
+	val, ok := db.entries[id]
+	return val, ok
 }
 
 func (db *InMemoryDatabase) DeleteEntry(id string) {

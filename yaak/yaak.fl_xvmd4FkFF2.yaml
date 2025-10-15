@@ -1,0 +1,13 @@
+type: folder
+model: folder
+id: fl_xvmd4FkFF2
+createdAt: 2025-10-15T10:16:57.892639
+updatedAt: 2025-10-15T10:17:02.038548
+workspaceId: wk_Hztt5grLqi
+folderId: null
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: url-shortener
+sortPriority: 1000.0

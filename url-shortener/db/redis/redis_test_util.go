@@ -3,8 +3,8 @@ package redis
 import (
 	"context"
 	"testing"
-	"url/config"
-	common "url/db"
+	"url-shortener/config"
+	common "url-shortener/db"
 )
 
 type DatabaseTestSuite = common.DatabaseTestSuite

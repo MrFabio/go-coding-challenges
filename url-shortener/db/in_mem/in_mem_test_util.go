@@ -2,7 +2,7 @@ package in_mem
 
 import (
 	"testing"
-	common "url/db"
+	common "url-shortener/db"
 )
 
 type DatabaseTestSuite = common.DatabaseTestSuite

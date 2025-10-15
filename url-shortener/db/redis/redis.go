@@ -2,9 +2,9 @@ package redis
 
 import (
 	"fmt"
-	"url/config"
+	"url-shortener/config"
 
-	common "url/db"
+	common "url-shortener/db"
 )
 
 type Entry = common.Entry
@@ -54,13 +54,14 @@ func (db *RedisDatabase) GetIdByHash(hash string) string {
 	return id
 }
 
-func (db *RedisDatabase) GetEntry(id string) (Entry, error) {
-	return db.redisHelper.GetHash(generateKeyId(id))
+func (db *RedisDatabase) GetEntry(id string) (Entry, bool) {
+	val, err := db.redisHelper.GetHash(generateKeyId(id))
+	return val, err == nil
 }
 
 func (db *RedisDatabase) DeleteEntry(id string) {
-	entry, err := db.GetEntry(id)
-	if err != nil {
+	entry, ok := db.GetEntry(id)
+	if !ok {
 		return
 	}
 	idKey, hashKey := generateKeys(&entry)

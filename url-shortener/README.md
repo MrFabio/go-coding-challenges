@@ -15,23 +15,31 @@ A flexible URL shortening service with a generic database interface, built as pa
 - **CRUD Operations**: Add, get, delete, and count entries
 - **Clean Architecture**: Well-organized code with separated concerns
 - **Input Validation**: URL validation and normalization
+- **gRPC**: Has gRPC support
 
 ## Project Structure
 
 ``` yaml
 url-shortener/
-├── api/              # All application logic (flat structure)
-│   ├── config.go     # Configuration management
-│   ├── handlers.go   # HTTP request handlers
-│   ├── models.go     # Data structures and request/response models
-│   ├── server.go     # Server setup and routing
-│   └── validation.go # Input validation logic
-├── db/               # Database implementations
-│   ├── in_mem/       # In-memory database
-│   └── redis/        # Redis database
-├── docs/             # Documentation and screenshots
-├── www/              # Static web files
-└── main.go           # Application entry point
+├── api/                     # All application logic (flat structure)
+│   ├── grpc                 # gRPC proto related files
+│   │   ├── entry_grpc.pb.go # proto generated grpc pb file
+│   │   ├── entry.pb.go      # proto generated pb file
+│   │   └── entry.proto      # proto definition
+│   ├── grpc.go              # gRPC server
+│   ├── handlers.go          # HTTP request handlers
+│   ├── models.go            # Data structures and request/response models
+│   ├── server.go            # Server setup and routing
+│   └── validation.go        # Input validation logic
+├── config
+│   └── config.go            # Configuration management
+├── db/                      # Database implementations
+│   ├── in_mem/              # In-memory database
+│   └── redis/               # Redis database
+│   └── tests/               # Database common Tests
+├── docs/                    # Documentation and screenshots
+├── www/                     # Static web files
+└── main.go                  # Application entry point
 ```
 
 ## Database Implementations
@@ -68,12 +76,24 @@ DATABASE_MODE=redis go run .
 DATABASE_MODE=redis REDIS_HOST=localhost REDIS_PORT=6379 go run .
 ```
 
-## API Endpoints
+## Web Endpoints
 
 - `GET /` - Serve the main page
 - `GET /:id` - Redirect short URL to original URL
 - `POST /` - Create a new short URL
 - `GET /health` - Health check endpoint
+
+## API Endpoints
+
+- `GET /api/:id` - Gets the entry from a short id
+
+## GRPC Endpoints
+
+Listening on port `50051`
+
+- `WatchEntries` - Server-Streaming of created Entries
+- `GetEntry` - Unary call to Get the entry from a short id
+- `AddEntry` - Unary call to Create and Entry
 
 ## Implementation Details
 
@@ -84,6 +104,7 @@ The service uses a clean architecture with:
 - **Multiple Backends**: In-memory maps and Redis storage
 - **API Endpoint**: Endpoint that serves the logic using [Gin](https://gin-gonic.com/en/)
 - **Simple Webpage**: Add a friendly page to shorten and redirect URLs
+- **gRPC**: Has GRPC server-streaming and for unary calls
 
 ## Testing
 

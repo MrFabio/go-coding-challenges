@@ -1,0 +1,14 @@
+type: workspace
+model: workspace
+id: wk_Hztt5grLqi
+createdAt: 2025-10-08T14:52:25.977653
+updatedAt: 2025-10-14T17:36:11.746156
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: Go Challenges
+encryptionKeyChallenge: null
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0
